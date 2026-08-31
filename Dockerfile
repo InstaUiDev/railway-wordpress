@@ -19,5 +19,6 @@ RUN echo "DirectoryIndex index.php index.html" >> /etc/apache2/apache2.conf
 # Set the maximum upload file size directly in the PHP configuration
 RUN echo "upload_max_filesize = $SIZE_LIMIT" >> /usr/local/etc/php/php.ini
 RUN echo "post_max_size = $SIZE_LIMIT" >> /usr/local/etc/php/php.ini
-
+RUN a2dismod mpm_event mpm_worker \
+    && a2enmod mpm_prefork
 CMD ["apache2-foreground"]
